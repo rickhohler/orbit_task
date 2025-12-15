@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'dart:isolate';
 import 'package:uuid/uuid.dart';
 import 'package:orbit_task_platform_interface/orbit_task_platform_interface.dart';
+import 'platform/platform.dart';
 
 /// Facade for managing background tasks across platforms.
 ///
@@ -110,7 +110,7 @@ class OrbitTask {
       }
     } else {
       developer.log(
-        "No handler registered for task: $taskName. (Isolate: ${Isolate.current.debugName})",
+        "No handler registered for task: $taskName. (Isolate: $currentIsolateName)",
       );
     }
   }
