@@ -1,12 +1,12 @@
 name: orbit_task_generator
 description: "Code generator for orbit_task, automating the registration of background task entry points."
-version: 0.0.1+4
+version: 0.0.1+5
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task/tree/main/packages/orbit_task_generator
 issue_tracker: https://github.com/rickhohler/orbit_task/issues
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.10.3
   flutter: ">=1.17.0"
 
 dependencies:
