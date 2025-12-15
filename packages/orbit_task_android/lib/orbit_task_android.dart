@@ -1,6 +1,6 @@
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:orbit_task_platform_interface/orbit_task_platform_interface.dart';
 
 /// The Android implementation of [OrbitTaskPlatform].
@@ -49,7 +49,7 @@ class OrbitTaskAndroid extends OrbitTaskPlatform {
       if (_taskExecutor != null) {
         _taskExecutor!(taskName, inputData);
       } else {
-        print("OrbitTaskAndroid: Task executor not set.");
+        debugPrint("OrbitTaskAndroid: Task executor not set.");
       }
     }
   }
