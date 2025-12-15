@@ -7,11 +7,15 @@ import 'package:mockito/mockito.dart';
 
 import 'orbit_task_test.mocks.dart';
 
-@GenerateMocks([], customMocks: [
-  MockSpec<OrbitTaskPlatform>(as: #MockOrbitTaskPlatformBase),
-  MockSpec<BackgroundTask>(as: #MockBackgroundTask),
-])
-class MockOrbitTaskPlatform extends MockOrbitTaskPlatformBase with MockPlatformInterfaceMixin {}
+@GenerateMocks(
+  [],
+  customMocks: [
+    MockSpec<OrbitTaskPlatform>(as: #MockOrbitTaskPlatformBase),
+    MockSpec<BackgroundTask>(as: #MockBackgroundTask),
+  ],
+)
+class MockOrbitTaskPlatform extends MockOrbitTaskPlatformBase
+    with MockPlatformInterfaceMixin {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -31,22 +35,35 @@ void main() {
     });
 
     test('initialize calls platform initialize', () async {
-      when(mockPlatform.initialize(any as void Function(String, Map<String, dynamic>), dispatcher: anyNamed('dispatcher')))
-          .thenAnswer((_) async {});
+      when(
+        mockPlatform.initialize(
+          any as void Function(String, Map<String, dynamic>),
+          dispatcher: anyNamed('dispatcher'),
+        ),
+      ).thenAnswer((_) async {});
 
       await OrbitTask.instance.initialize(dispatcher: dummyDispatcher);
 
-      verify(mockPlatform.initialize(any as void Function(String, Map<String, dynamic>), dispatcher: anyNamed('dispatcher')))
-          .called(1);
+      verify(
+        mockPlatform.initialize(
+          any as void Function(String, Map<String, dynamic>),
+          dispatcher: anyNamed('dispatcher'),
+        ),
+      ).called(1);
     });
-    
+
     test('scheduleOneTime calls platform scheduleOneTimeTask', () async {
-      when(mockPlatform.scheduleOneTimeTask(any as BackgroundTask))
-          .thenAnswer((_) async {});
+      when(
+        mockPlatform.scheduleOneTimeTask(any as BackgroundTask),
+      ).thenAnswer((_) async {});
 
       // Need to be initialized first
-      when(mockPlatform.initialize(any as void Function(String, Map<String, dynamic>), dispatcher: anyNamed('dispatcher')))
-          .thenAnswer((_) async {});
+      when(
+        mockPlatform.initialize(
+          any as void Function(String, Map<String, dynamic>),
+          dispatcher: anyNamed('dispatcher'),
+        ),
+      ).thenAnswer((_) async {});
       await OrbitTask.instance.initialize(dispatcher: dummyDispatcher);
 
       final taskId = await OrbitTask.instance.scheduleOneTime(
@@ -55,8 +72,12 @@ void main() {
       );
 
       expect(taskId, isNotEmpty);
-      
-      final captured = verify(mockPlatform.scheduleOneTimeTask(captureThat(isA<BackgroundTask>()) as BackgroundTask)).captured;
+
+      final captured = verify(
+        mockPlatform.scheduleOneTimeTask(
+          captureThat(isA<BackgroundTask>()) as BackgroundTask,
+        ),
+      ).captured;
       final task = captured.first as BackgroundTask;
       expect(task.taskName, "test_task");
       expect(task.inputData, equals({"key": "value"}));
@@ -64,9 +85,15 @@ void main() {
     });
 
     test('scheduleTask delegates recurring tasks correctly', () async {
-      when(mockPlatform.scheduleRecurringTask(any as BackgroundTask)).thenAnswer((_) async {});
-      when(mockPlatform.initialize(any as void Function(String, Map<String, dynamic>), dispatcher: anyNamed('dispatcher')))
-          .thenAnswer((_) async {});
+      when(
+        mockPlatform.scheduleRecurringTask(any as BackgroundTask),
+      ).thenAnswer((_) async {});
+      when(
+        mockPlatform.initialize(
+          any as void Function(String, Map<String, dynamic>),
+          dispatcher: anyNamed('dispatcher'),
+        ),
+      ).thenAnswer((_) async {});
       await OrbitTask.instance.initialize(dispatcher: dummyDispatcher);
 
       final recurringTask = BackgroundTask(
@@ -82,9 +109,15 @@ void main() {
     });
 
     test('scheduleTask delegates one-time tasks correctly', () async {
-      when(mockPlatform.scheduleOneTimeTask(any as BackgroundTask)).thenAnswer((_) async {});
-      when(mockPlatform.initialize(any as void Function(String, Map<String, dynamic>), dispatcher: anyNamed('dispatcher')))
-          .thenAnswer((_) async {});
+      when(
+        mockPlatform.scheduleOneTimeTask(any as BackgroundTask),
+      ).thenAnswer((_) async {});
+      when(
+        mockPlatform.initialize(
+          any as void Function(String, Map<String, dynamic>),
+          dispatcher: anyNamed('dispatcher'),
+        ),
+      ).thenAnswer((_) async {});
       await OrbitTask.instance.initialize(dispatcher: dummyDispatcher);
 
       final oneTimeTask = BackgroundTask(
@@ -98,11 +131,17 @@ void main() {
       verify(mockPlatform.scheduleOneTimeTask(oneTimeTask)).called(1);
       verifyNever(mockPlatform.scheduleRecurringTask(any as BackgroundTask));
     });
-    
+
     test('cancelTask calls platform cancelTask', () async {
-      when(mockPlatform.cancelTask(any as String)).thenAnswer((_) => Future.value());
-      when(mockPlatform.initialize(any as void Function(String, Map<String, dynamic>), dispatcher: anyNamed('dispatcher')))
-          .thenAnswer((_) => Future.value());
+      when(
+        mockPlatform.cancelTask(any as String),
+      ).thenAnswer((_) => Future.value());
+      when(
+        mockPlatform.initialize(
+          any as void Function(String, Map<String, dynamic>),
+          dispatcher: anyNamed('dispatcher'),
+        ),
+      ).thenAnswer((_) => Future.value());
       await OrbitTask.instance.initialize(dispatcher: dummyDispatcher);
 
       await OrbitTask.instance.cancelTask("task_123");
@@ -112,15 +151,19 @@ void main() {
 
     test('cancelAll calls platform cancelAllTasks', () async {
       when(mockPlatform.cancelAllTasks()).thenAnswer((_) => Future.value());
-      when(mockPlatform.initialize(any as void Function(String, Map<String, dynamic>), dispatcher: anyNamed('dispatcher')))
-          .thenAnswer((_) => Future.value());
+      when(
+        mockPlatform.initialize(
+          any as void Function(String, Map<String, dynamic>),
+          dispatcher: anyNamed('dispatcher'),
+        ),
+      ).thenAnswer((_) => Future.value());
       await OrbitTask.instance.initialize(dispatcher: dummyDispatcher);
 
       await OrbitTask.instance.cancelAll();
 
       verify(mockPlatform.cancelAllTasks()).called(1);
     });
-    
+
     test('Throws StateError if not initialized', () async {
       // Create a fresh instance/state by re-internalizing?
       // OrbitTask is a singleton, so state persists.

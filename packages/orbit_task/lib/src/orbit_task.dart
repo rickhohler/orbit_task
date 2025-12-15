@@ -13,7 +13,8 @@ class OrbitTask {
   static OrbitTask get instance => _instance;
 
   Function? _dispatcher;
-  final Map<String, Future<TaskResult> Function(Map<String, dynamic>)> _taskHandlers = {};
+  final Map<String, Future<TaskResult> Function(Map<String, dynamic>)>
+  _taskHandlers = {};
   bool _isInitialized = false;
   final _uuid = Uuid();
 
@@ -25,17 +26,20 @@ class OrbitTask {
   ///               Required if using isolate-based execution on Mobile.
   /// Note: The platform channel must be configured before calling this,
   /// typically via standard plugin registration.
-  Future<void> initialize({
-    Function? dispatcher,
-  }) async {
+  Future<void> initialize({Function? dispatcher}) async {
     _dispatcher = dispatcher;
-    await OrbitTaskPlatform.instance.initialize(_executeTask, dispatcher: dispatcher);
+    await OrbitTaskPlatform.instance.initialize(
+      _executeTask,
+      dispatcher: dispatcher,
+    );
     _isInitialized = true;
   }
 
   /// Register a handler for a task name.
-  void registerHandler(String taskName,
-      Future<TaskResult> Function(Map<String, dynamic>) handler) {
+  void registerHandler(
+    String taskName,
+    Future<TaskResult> Function(Map<String, dynamic>) handler,
+  ) {
     _taskHandlers[taskName] = handler;
   }
 
@@ -80,21 +84,23 @@ class OrbitTask {
 
   void _checkInitialized() {
     if (!_isInitialized) {
-      throw StateError(
-          "OrbitTask not initialized. Call initialize() first.");
+      throw StateError("OrbitTask not initialized. Call initialize() first.");
     }
   }
 
   /// Internal callback executed by the strategy when a task fires.
   void _executeTask(String taskName, Map<String, dynamic> inputData) async {
     // it calls this _executeTask.
-    
+
     // For standard non-isolate flow:
     await executeTaskInternally(taskName, inputData);
   }
-  
+
   /// Public helper to execute a task by name (used by IsolateTaskRunner).
-  Future<void> executeTaskInternally(String taskName, Map<String, dynamic> inputData) async {
+  Future<void> executeTaskInternally(
+    String taskName,
+    Map<String, dynamic> inputData,
+  ) async {
     final handler = _taskHandlers[taskName];
     if (handler != null) {
       try {
@@ -103,10 +109,12 @@ class OrbitTask {
         developer.log("Task execution failed for $taskName", error: e);
       }
     } else {
-      developer.log("No handler registered for task: $taskName. (Isolate: ${Isolate.current.debugName})");
+      developer.log(
+        "No handler registered for task: $taskName. (Isolate: ${Isolate.current.debugName})",
+      );
     }
   }
-  
+
   /// Get the registered dispatcher.
   Function? get dispatcher => _dispatcher;
 }

@@ -15,16 +15,19 @@ class IsolateTaskRunner {
     required Map<String, dynamic> inputData,
   }) async {
     final port = ReceivePort();
-    
+
     // Check if dispatcher is valid (static/top-level) happens via spawn
     try {
-      await Isolate.spawn(_isolateEntry, _IsolatePayload(
-        sendPort: port.sendPort,
-        dispatcher: dispatcher,
-        taskName: taskName,
-        inputData: inputData,
-      ));
-      
+      await Isolate.spawn(
+        _isolateEntry,
+        _IsolatePayload(
+          sendPort: port.sendPort,
+          dispatcher: dispatcher,
+          taskName: taskName,
+          inputData: inputData,
+        ),
+      );
+
       // Wait for completion signal
       final result = await port.first;
       if (result is _IsolateError) {
@@ -37,7 +40,7 @@ class IsolateTaskRunner {
 
   static void _isolateEntry(_IsolatePayload payload) async {
     final sendPort = payload.sendPort;
-    
+
     try {
       // 1. Run the dispatcher. This should configure the TaskScheduler
       //    in this new isolate with handlers.
@@ -47,22 +50,22 @@ class IsolateTaskRunner {
       } else {
         throw ArgumentError("Dispatcher must be a void Function()");
       }
-      
+
       // 2. Execute the specific task
       //    The dispatcher should have called `OrbitTask.instance.registerHandler`.
       //    Unintuitively, we need access to the OrbitTask instance IN THIS ISOLATE.
       //    Since OrbitTask is a singleton, `OrbitTask.instance` here is distinct
       //    from the main isolate. It is empty until handlers are registered.
-      
+
       // We manually invoke the private execution logic on the local instance.
       // But we need to expose it or simulate it.
       // We can use a public helper methods on OrbitTask.
-      
+
       await OrbitTask.instance.executeTaskInternally(
-        payload.taskName, 
-        payload.inputData
+        payload.taskName,
+        payload.inputData,
       );
-      
+
       sendPort.send(true); // Success
     } catch (e) {
       sendPort.send(_IsolateError(e.toString()));

@@ -20,14 +20,14 @@ class OrbitTaskGenerator extends GeneratorForAnnotation<OrbitTaskAnnotation> {
     }
 
     if (!element.isAsynchronous || !element.returnType.isDartAsyncFuture) {
-       throw InvalidGenerationSourceError(
+      throw InvalidGenerationSourceError(
         'Generator cannot target `${element.name}`. '
         'Task function must be async and return a Future.',
         element: element,
       );
     }
-    
-    // In a real implementation we would generate the consolidated 
+
+    // In a real implementation we would generate the consolidated
     // `callbackDispatcher` or registration logic here.
     return '// Generated OrbitTask handler for ${element.name}';
   }

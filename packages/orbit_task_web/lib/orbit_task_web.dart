@@ -24,11 +24,11 @@ class OrbitTaskWebWeb extends OrbitTaskPlatform {
 
   @override
   Future<void> scheduleOneTimeTask(BackgroundTask task) async {
-     // Web doesn't support "background" in the same sense as mobile when the tab is closed.
-     // We use a simple Timer simulation.
-     Timer(const Duration(milliseconds: 100), () async {
-       await _runTask(task);
-     });
+    // Web doesn't support "background" in the same sense as mobile when the tab is closed.
+    // We use a simple Timer simulation.
+    Timer(const Duration(milliseconds: 100), () async {
+      await _runTask(task);
+    });
   }
 
   Future<void> _runTask(BackgroundTask task) async {
@@ -41,7 +41,7 @@ class OrbitTaskWebWeb extends OrbitTaskPlatform {
   Future<void> scheduleRecurringTask(BackgroundTask task) async {
     final frequency = task.frequency ?? const Duration(minutes: 15);
     _cancelTimer(task.id);
-    
+
     _activeTimers[task.id] = Timer.periodic(frequency, (_) {
       _runTask(task);
     });

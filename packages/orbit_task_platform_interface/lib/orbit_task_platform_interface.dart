@@ -45,7 +45,9 @@ abstract class OrbitTaskPlatform extends PlatformInterface {
 
   /// Schedule a recurring task.
   Future<void> scheduleRecurringTask(BackgroundTask task) {
-    throw UnimplementedError('scheduleRecurringTask() has not been implemented.');
+    throw UnimplementedError(
+      'scheduleRecurringTask() has not been implemented.',
+    );
   }
 
   /// Cancel a specific task.

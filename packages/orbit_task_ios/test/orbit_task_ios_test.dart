@@ -11,10 +11,12 @@ void main() {
   setUp(() {
     platform = OrbitTaskIos();
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(const MethodChannel('orbit_task'), (MethodCall methodCall) async {
-      log.add(methodCall);
-      return null;
-    });
+        .setMockMethodCallHandler(const MethodChannel('orbit_task'), (
+          MethodCall methodCall,
+        ) async {
+          log.add(methodCall);
+          return null;
+        });
     log.clear();
   });
 
@@ -32,7 +34,7 @@ void main() {
       inputData: {"a": 1},
     );
     await platform.scheduleOneTimeTask(task);
-    
+
     expect(log, hasLength(1));
     expect(log.first.method, 'scheduleOneTimeTask');
     expect(log.first.arguments['taskName'], 'ios_task');

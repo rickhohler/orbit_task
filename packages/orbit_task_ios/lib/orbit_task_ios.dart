@@ -19,7 +19,9 @@ class OrbitTaskIos extends OrbitTaskPlatform {
   }) async {
     // For iOS headless execution, we need to pass the callback handle if available.
     if (dispatcher != null) {
-      final int? handle = PluginUtilities.getCallbackHandle(dispatcher)?.toRawHandle();
+      final int? handle = PluginUtilities.getCallbackHandle(
+        dispatcher,
+      )?.toRawHandle();
       if (handle != null) {
         await _channel.invokeMethod('initialize', {'callbackHandle': handle});
       }
