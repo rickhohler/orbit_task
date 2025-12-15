@@ -20,14 +20,8 @@ jobs:
         with:
           channel: 'stable'
           
-      - name: Setup Pub Credentials
-        run: |
-          mkdir -p $HOME/.config/dart
-          # You will need to setup authentication, usually managed via 
-          # a service account or manual token if not using OIDC. 
-          # For fully automated pub publishing from GitHub Actions, 
-          # OIDC is the recommended path.
-          
+      - uses: dart-lang/setup-dart@v1
+      
       - name: Publish Packages
         run: |
           # Publish order matters: dependency leaves first.
