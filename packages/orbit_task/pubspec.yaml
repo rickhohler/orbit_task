@@ -1,6 +1,6 @@
 name: orbit_task
 description: "The Next Generation Task Scheduler for Flutter. Orchestrate background execution seamlessly across Android, iOS, and Web."
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task
 issue_tracker: https://github.com/rickhohler/orbit_task/issues
@@ -13,10 +13,10 @@ dependencies:
   flutter:
     sdk: flutter
   uuid: ^4.5.2
-  orbit_task_platform_interface: ^0.0.2
-  orbit_task_android: ^0.0.2
-  orbit_task_ios: ^0.0.2
-  orbit_task_web: ^0.0.2
+  orbit_task_platform_interface: ^0.0.3
+  orbit_task_android: ^0.0.3
+  orbit_task_ios: ^0.0.3
+  orbit_task_web: ^0.0.3
 
 flutter:
   plugin:
