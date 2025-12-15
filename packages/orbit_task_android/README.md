@@ -1,15 +1,7 @@
-# orbit_task_android
+# OrbitTask Android
 
-A new Flutter plugin project.
+The Android implementation for `orbit_task`. This package uses `WorkManager` for reliable background execution.
 
-## Getting Started
-
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/to/develop-plugins),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+## Setup
+The `AndroidManifest.xml` modifications are handled automatically by the plugin.
+However, ensure your `compileSdkVersion` is at least 34.

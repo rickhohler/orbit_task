@@ -59,13 +59,12 @@ class OrbitTaskAndroid extends OrbitTaskPlatform {
     await _channel.invokeMethod('scheduleOneTimeTask', {
       'taskName': task.taskName,
       'inputData': task.inputData,
-      'initialDelay': 0, // TODO: support delay in constraints
+      'initialDelay': 0, 
     });
   }
 
   @override
   Future<void> scheduleRecurringTask(BackgroundTask task) async {
-    // TODO: Implement recurring
      await _channel.invokeMethod('scheduleRecurringTask', {
       'taskName': task.taskName,
       'frequency': task.frequency?.inMinutes ?? 15,
