@@ -1,6 +1,6 @@
 name: orbit_task_annotations
 description: "Annotation library for orbit_task, allowing easy designation of background task handler functions."
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task/tree/main/packages/orbit_task_annotations
 issue_tracker: https://github.com/rickhohler/orbit_task/issues

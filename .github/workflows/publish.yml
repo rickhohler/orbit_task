@@ -9,6 +9,7 @@ jobs:
   publish:
     name: Publish to Pub.dev
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       id-token: write # Required for authentication with pub.dev
 
