@@ -19,16 +19,6 @@ jobs:
         with:
           channel: 'stable'
           
-      - name: Install dependencies
-        run: |
-          # Install dependencies for all packages
-          for pkg in packages/*; do
-            if [ -d "$pkg" ]; then
-              echo "Getting dependencies for $pkg"
-              (cd "$pkg" && flutter pub get)
-            fi
-          done
-          
       - name: Setup Pub Credentials
         run: |
           mkdir -p $HOME/.config/dart
