@@ -1,4 +1,3 @@
-
 /// Represents a task to be executed in the background.
 ///
 /// Follows the Command pattern structure, encapsulating the data needed

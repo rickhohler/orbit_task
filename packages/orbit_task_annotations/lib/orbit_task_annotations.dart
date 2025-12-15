@@ -1,7 +1,7 @@
 /// Annotation to define an OrbitTask.
 ///
 /// Use this to annotate functions that should be treated as background tasks.
-/// 
+///
 /// Example:
 /// ```dart
 /// @orbitTask

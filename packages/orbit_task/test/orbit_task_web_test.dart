@@ -39,12 +39,12 @@ void main() {
 
       // Wait for execution (simulated delay is 100ms)
       await completer.future.timeout(const Duration(seconds: 1));
-      
+
       expect(executed, isTrue);
     });
 
     test('scheduleRecurringTask executes repeatedly', () async {
-       final task = BackgroundTask(
+      final task = BackgroundTask(
         id: 'recur_task_1',
         taskName: 'periodic',
         inputData: {},
@@ -59,17 +59,17 @@ void main() {
       });
 
       await webPlatform.scheduleRecurringTask(task);
-      
+
       // Wait for 2-3 cycles
       await Future.delayed(const Duration(milliseconds: 200));
-      
+
       await webPlatform.cancelTask(task.id);
-      
+
       expect(count, greaterThanOrEqualTo(2));
     });
 
     test('cancelTask cancels recurring task', () async {
-       final task = BackgroundTask(
+      final task = BackgroundTask(
         id: 'cancel_me',
         taskName: 'periodic',
         inputData: {},
@@ -78,19 +78,21 @@ void main() {
 
       int count = 0;
       await webPlatform.initialize((taskName, inputData) {
-         count++;
+        count++;
       });
 
       await webPlatform.scheduleRecurringTask(task);
-      await Future.delayed(const Duration(milliseconds: 50)); // let it run once potentially
+      await Future.delayed(
+        const Duration(milliseconds: 50),
+      ); // let it run once potentially
       await webPlatform.cancelTask(task.id);
-      
+
       final countAfterCancel = count;
       await Future.delayed(const Duration(milliseconds: 150)); // wait more
-      
+
       // Should not have incremented significantly more after cancel
       // (allowing for 1 race condition firing due to timing)
-      expect(count, lessThan(countAfterCancel + 2)); 
+      expect(count, lessThan(countAfterCancel + 2));
     });
   });
 }
