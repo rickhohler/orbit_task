@@ -1,4 +1,3 @@
-import 'dart:async';
 
 /// Represents a task to be executed in the background.
 ///

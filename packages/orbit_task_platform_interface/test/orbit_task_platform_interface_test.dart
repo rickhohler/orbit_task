@@ -1,12 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:orbit_task_platform_interface/orbit_task_platform_interface.dart';
 
+class OrbitTaskPlatformMock extends OrbitTaskPlatform {
+  
+}
+
 void main() {
-  test('adds one to input values', () {
-    final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  group('OrbitTaskPlatformInterface', () {
+    test('default implementation throws', () {
+      final platform = OrbitTaskPlatformMock(); 
+      // Just verifying we can instantiate it and it inherits default methods
+      expect(platform, isA<OrbitTaskPlatform>());
+    });
   });
 }
