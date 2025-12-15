@@ -1,6 +1,6 @@
 name: orbit_task_web
 description: "Web implementation for the orbit_task plugin, providing fallback simulation for background tasks in the browser."
-version: 0.0.1+6
+version: 0.0.2
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task/tree/main/packages/orbit_task_web
 issue_tracker: https://github.com/rickhohler/orbit_task/issues
@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  orbit_task_platform_interface: ^0.0.1
+  orbit_task_platform_interface: ^0.0.2
 
 dev_dependencies:
   flutter_test:
