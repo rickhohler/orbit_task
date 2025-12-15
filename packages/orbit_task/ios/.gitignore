@@ -1,0 +1,13 @@
+.DS_Store
+.generated.yaml
+**/Flutter/Flutter.framework
+**/Flutter/Flutter.podspec
+**/Flutter/Generated.xcconfig
+**/Flutter/app.flx
+**/Flutter/app.zip
+**/Flutter/flutter_assets/
+**/ServiceDefinitions.json
+Pods/
+.symlinks/
+*.xcodeproj/project.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata

@@ -1,0 +1,27 @@
+name: orbit_task_android
+description: "A new Flutter plugin project."
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^3.10.3
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  orbit_task_platform_interface:
+    path: ../orbit_task_platform_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  plugin:
+    implements: orbit_task
+    platforms:
+      android:
+        package: com.example.orbit_task_android
+        pluginClass: OrbitTaskAndroidPlugin

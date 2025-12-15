@@ -1,0 +1,23 @@
+name: orbit_task_ios
+options:
+  bundleIdPrefix: com.example.orbit_task_ios
+  deploymentTarget:
+    iOS: "13.0"
+targets:
+  orbit_task_ios:
+    type: framework
+    platform: iOS
+    sources:
+      - path: Classes
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.example.orbit_task_ios
+      SKIP_INSTALL: YES
+      MACH_O_TYPE: staticlib
+    info:
+      path: Info.plist
+      properties:
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        BGTaskSchedulerPermittedIdentifiers:
+           - com.example.orbit_task.refresh

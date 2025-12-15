@@ -1,0 +1,8 @@
+builders:
+  orbit_task:
+    import: "package:orbit_task_generator/orbit_task_generator.dart"
+    builder_factories: ["orbitTaskBuilder"]
+    build_extensions: {".dart": [".orbit_task.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen:combining_builder"]
