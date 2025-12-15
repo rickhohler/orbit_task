@@ -1,7 +1,9 @@
 name: orbit_task_platform_interface
-description: "A new Flutter package project."
+description: "Platform interface package for orbit_task plugin."
 version: 0.0.1
-homepage:
+homepage: https://github.com/rickhohler/orbit_task
+repository: https://github.com/rickhohler/orbit_task/tree/main/packages/orbit_task_platform_interface
+issue_tracker: https://github.com/rickhohler/orbit_task/issues
 
 environment:
   sdk: ^3.10.3
@@ -17,8 +19,4 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
 flutter:

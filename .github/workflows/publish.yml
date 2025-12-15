@@ -1,0 +1,59 @@
+name: Publish to Pub.dev
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+' # Publish on tags like v1.0.0
+
+jobs:
+  publish:
+    name: Publish to Pub.dev
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for authentication with pub.dev
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+          
+      - name: Install dependencies
+        run: |
+          # Install dependencies for all packages
+          for pkg in packages/*; do
+            if [ -d "$pkg" ]; then
+              echo "Getting dependencies for $pkg"
+              (cd "$pkg" && flutter pub get)
+            fi
+          done
+          
+      - name: Setup Pub Credentials
+        run: |
+          mkdir -p $HOME/.config/dart
+          # You will need to setup authentication, usually managed via 
+          # a service account or manual token if not using OIDC. 
+          # For fully automated pub publishing from GitHub Actions, 
+          # OIDC is the recommended path.
+          
+      - name: Publish Packages
+        run: |
+          # Publish order matters: dependency leaves first.
+          
+          # 1. Annotations (independent)
+          (cd packages/orbit_task_annotations && dart pub publish -f)
+          
+          # 2. Platform Interface (depends on nothing or core flutter)
+          (cd packages/orbit_task_platform_interface && dart pub publish -f)
+          
+          # 3. Generator (depends on annotations)
+          (cd packages/orbit_task_generator && dart pub publish -f)
+          
+          # 4. Implementations (depend on platform interface)
+          (cd packages/orbit_task_android && dart pub publish -f)
+          (cd packages/orbit_task_ios && dart pub publish -f)
+          (cd packages/orbit_task_web && dart pub publish -f)
+          
+          # 5. Facade (depends on everything)
+          (cd packages/orbit_task && dart pub publish -f)
