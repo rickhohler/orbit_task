@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.1] - 2025-12-15
+## [0.0.1+1] - 2025-12-15
 
 ### Added
 - **Federated Plugin Structure**: Split into `orbit_task` (facade), `orbit_task_android`, `orbit_task_ios`, `orbit_task_web`, and `orbit_task_platform_interface`.
