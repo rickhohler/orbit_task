@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:isolate';
 import 'package:uuid/uuid.dart';
 import 'package:orbit_task_platform_interface/orbit_task_platform_interface.dart';
@@ -99,10 +100,10 @@ class OrbitTask {
       try {
         await handler(inputData);
       } catch (e) {
-        print("Task execution failed for $taskName: $e");
+        developer.log("Task execution failed for $taskName", error: e);
       }
     } else {
-      print("No handler registered for task: $taskName. (Isolate: ${Isolate.current.debugName})");
+      developer.log("No handler registered for task: $taskName. (Isolate: ${Isolate.current.debugName})");
     }
   }
   

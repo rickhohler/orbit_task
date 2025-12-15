@@ -1,7 +1,7 @@
 import 'dart:isolate';
 import 'package:isolate/isolate.dart'; // Just in case, but using core dart:isolate
 import 'orbit_task.dart';
-import 'package:orbit_task_platform_interface/src/task.dart';
+import 'package:orbit_task_platform_interface/orbit_task_platform_interface.dart';
 
 /// Runner for tasks in a separate isolate.
 ///
