@@ -1,6 +1,6 @@
 name: orbit_task_android
 description: "Android implementation for the orbit_task plugin, providing WorkManager integration for persistent background tasks."
-version: 0.0.1+5
+version: 0.0.1+6
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task/tree/main/packages/orbit_task_android
 issue_tracker: https://github.com/rickhohler/orbit_task/issues
