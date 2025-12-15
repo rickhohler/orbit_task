@@ -1,6 +1,6 @@
 name: orbit_task
 description: "The Next Generation Task Scheduler for Flutter. Orchestrate background execution seamlessly across Android, iOS, and Web."
-version: 0.0.1
+version: 0.0.1+1
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task
 issue_tracker: https://github.com/rickhohler/orbit_task/issues

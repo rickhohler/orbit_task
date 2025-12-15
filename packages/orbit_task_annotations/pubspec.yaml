@@ -1,6 +1,6 @@
 name: orbit_task_annotations
 description: "Annotations for the orbit_task package."
-version: 0.0.1
+version: 0.0.1+1
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task/tree/main/packages/orbit_task_annotations
 issue_tracker: https://github.com/rickhohler/orbit_task/issues
