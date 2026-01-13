@@ -3,7 +3,6 @@ package com.example.orbit_task_android
 import android.content.Context
 import androidx.annotation.NonNull
 import androidx.work.*
-import io.flutter.embedding.engine.Loader
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -12,7 +11,6 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.view.FlutterCallbackInformation
-import io.flutter.view.FlutterMain
 import java.util.concurrent.TimeUnit
 
 /** OrbitTaskAndroidPlugin */

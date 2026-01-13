@@ -1,3 +1,6 @@
-## 0.0.1+1
+## 0.9.0+1
 
-* TODO: Describe initial release.
+*   **Production Release**: Stable generator package.
+*   **Feature**: Automated boilerplate generation for background callbacks.
+
+## 0.0.4

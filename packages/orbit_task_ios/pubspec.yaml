@@ -1,6 +1,6 @@
 name: orbit_task_ios
 description: "iOS implementation for the orbit_task plugin, using BGTaskScheduler for reliable background processing."
-version: 0.0.1+2
+version: 0.5.0+1
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task/tree/main/packages/orbit_task_ios
 issue_tracker: https://github.com/rickhohler/orbit_task/issues
@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  orbit_task_platform_interface: ^0.0.1
+  orbit_task_platform_interface: ^0.5.0
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +25,8 @@ flutter:
     platforms:
       ios:
         pluginClass: OrbitTaskIosPlugin
+        dartPluginClass: OrbitTaskIos
+
+dependency_overrides:
+  orbit_task_platform_interface:
+    path: ../orbit_task_platform_interface

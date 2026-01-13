@@ -116,33 +116,40 @@ public class OrbitTaskIosPlugin: NSObject, FlutterPlugin {
          return
      }
      
-     let engine = FlutterEngine(name: "OrbitTaskHeadless", project: nil)
-     let success = engine.run(withEntrypoint: flutterCallbackInfo.callbackName, libraryURI: flutterCallbackInfo.callbackLibraryPath)
-     
-     if !success {
-         print("OrbitTask: Failed to run headless engine.")
-         task.setTaskCompleted(success: false)
-         return
-     }
-     
-     // Register background channel on this new headless engine
-     let channel = FlutterMethodChannel(name: "orbit_task_background", binaryMessenger: engine.binaryMessenger)
-     
-     // We define a completion handler to wait for Dart side
-     var isCompleted = false
-     
-     channel.invokeMethod("executeTask", arguments: ["taskName": identifier, "inputData": inputData]) { result in
-         isCompleted = true
-         task.setTaskCompleted(success: true)
-         engine.destroyContext()
-     }
-     
-     // Timeout safety if Dart doesn't return
-     DispatchQueue.main.asyncAfter(deadline: .now() + 29) { // < 30s limit
-         if !isCompleted {
-             // Ensure we mark complete so system doesn't kill us poorly
+     // CRITICAL FIX: FlutterEngine must be initialized on the Main Thread.
+     // Reverting to GCD (DispatchQueue) to avoid Swift Concurrency 'unsafeForcedSync' warnings.
+     DispatchQueue.main.async {
+         let engine = FlutterEngine(name: "OrbitTaskHeadless", project: nil)
+         print("after engine")
+         let success = engine.run(withEntrypoint: flutterCallbackInfo.callbackName, libraryURI: flutterCallbackInfo.callbackLibraryPath)
+         print("after run: \(success)")
+         if !success {
+             print("OrbitTask: Failed to run headless engine.")
              task.setTaskCompleted(success: false)
+             return
+         }
+         
+         // Register background channel on this new headless engine
+         let channel = FlutterMethodChannel(name: "orbit_task_background", binaryMessenger: engine.binaryMessenger)
+         
+         // We define a completion handler to wait for Dart side
+         var isCompleted = false
+         
+         channel.invokeMethod("executeTask", arguments: ["taskName": identifier, "inputData": inputData]) { result in
+             isCompleted = true
+             task.setTaskCompleted(success: true)
+             // Keep engine alive until completion if needed, or destroy here?
+             // Usually good practice to keep it alive until task finishes.
              engine.destroyContext() 
+         }
+         
+         // Timeout safety if Dart doesn't return
+         DispatchQueue.main.asyncAfter(deadline: .now() + 29) { // < 30s limit
+             if !isCompleted {
+                 // Ensure we mark complete so system doesn't kill us poorly
+                 task.setTaskCompleted(success: false)
+                 engine.destroyContext()
+             }
          }
      }
   }

@@ -1,77 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:orbit_task/orbit_task.dart';
+import 'src/ui/home_page.dart';
 
-// Top-level function for background task execution
-@pragma('vm:entry-point')
-void backgroundDispatcher() {
-  OrbitTask.instance.registerHandler('simpleTask', (inputData) async {
-    print("Background Task Executed: $inputData");
-    return TaskResult.success();
-  });
-}
+// -----------------------------------------------------------------------------
+// App Entry Point
+// -----------------------------------------------------------------------------
 
 void main() {
-  runApp(const MyApp());
+  runApp(const OrbitTaskExampleApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _status = 'Idle';
-
-  @override
-  void initState() {
-    super.initState();
-    _initOrbitTask();
-  }
-
-  Future<void> _initOrbitTask() async {
-    await OrbitTask.instance.initialize(dispatcher: backgroundDispatcher);
-    setState(() {
-      _status = 'Initialized';
-    });
-  }
-
-  Future<void> _scheduleTask() async {
-    try {
-      await OrbitTask.instance.scheduleOneTime(
-        taskName: 'simpleTask',
-        inputData: {'timestamp': DateTime.now().toIso8601String()},
-      );
-      setState(() {
-        _status = 'Task Scheduled';
-      });
-    } catch (e) {
-      setState(() {
-        _status = 'Error: $e';
-      });
-    }
-  }
+/// The root widget of the OrbitTask example application.
+///
+/// Sets up the theme (Dark Mode, Deep Purple) and navigation.
+class OrbitTaskExampleApp extends StatelessWidget {
+  const OrbitTaskExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('OrbitTask Example')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Status: $_status'),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _scheduleTask,
-                child: const Text('Schedule One-Time Task'),
-              ),
-            ],
+      debugShowCheckedModeBanner: false,
+      title: 'OrbitTask Example',
+      themeMode: ThemeMode.dark,
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF0F0B15), // Deep space background
+        // Custom Orbit color scheme
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.dark,
+        ).copyWith(
+            primary: const Color(0xFF6200EA),
+            secondary: const Color(0xFF00E5FF), // Neon Cyan accent
+            tertiary: const Color(0xFFFF00E5), // Neon Magenta accent
+            surface: const Color(0xFF1A1425),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF1A1425),
+          elevation: 0,
+        ),
+        // Removed CardTheme to fix "argument type 'CardTheme' can't be assigned to parameter type 'CardThemeData?'"
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF6200EA),
+            foregroundColor: Colors.white,
+            elevation: 4,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
       ),
+      home: const HomePage(),
     );
   }
 }

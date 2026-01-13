@@ -1,3 +1,6 @@
-## 0.0.1+1
+## 0.9.0+1
 
-* TODO: Describe initial release.
+*   **Production Release**: Stable Android implementation.
+*   **Feature**: WorkManager integration for persistent background execution.
+
+## 0.0.4

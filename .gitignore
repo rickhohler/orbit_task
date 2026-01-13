@@ -27,3 +27,5 @@
 build/
 pubspec.lock
 coverage/
+
+tmp/

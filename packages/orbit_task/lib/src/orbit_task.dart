@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'dart:isolate';
 import 'package:uuid/uuid.dart';
 import 'package:orbit_task_platform_interface/orbit_task_platform_interface.dart';
+import 'platform/platform.dart';
 
 /// Facade for managing background tasks across platforms.
 ///
@@ -70,6 +70,25 @@ class OrbitTask {
     return id;
   }
 
+  /// Quick helper to schedule a recurring task.
+  Future<String> scheduleRecurring({
+    required String taskName,
+    required Duration frequency,
+    Map<String, dynamic> inputData = const {},
+    TaskConstraints constraints = const TaskConstraints(),
+  }) async {
+    final id = _uuid.v4();
+    final task = BackgroundTask(
+      id: id,
+      taskName: taskName,
+      inputData: inputData,
+      frequency: frequency,
+      constraints: constraints,
+    );
+    await scheduleTask(task);
+    return id;
+  }
+
   /// Cancel a task.
   Future<void> cancelTask(String taskId) async {
     _checkInitialized();
@@ -110,7 +129,7 @@ class OrbitTask {
       }
     } else {
       developer.log(
-        "No handler registered for task: $taskName. (Isolate: ${Isolate.current.debugName})",
+        "No handler registered for task: $taskName. (Isolate: $currentIsolateName)",
       );
     }
   }

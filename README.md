@@ -39,7 +39,7 @@ void callbackDispatcher() {
   // Initialize and handle background events
 }
 
-// 2. Or use the new Annotation API (Coming Soon)
+// 2. Or use the Annotation API
 @orbitTask
 Future<void> myBackgroundTask(Map<String, dynamic> args) async {
   print("Running background task!");

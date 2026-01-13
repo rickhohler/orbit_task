@@ -5,15 +5,41 @@ version: 1.0.0+1
 
 environment:
   sdk: ^3.10.3
-  flutter: ">=3.3.0"
+  flutter: ">=3.38.4"
 
 dependencies:
   flutter:
     sdk: flutter
   orbit_task:
     path: ../
+  intl: ^0.18.0
+
+# ...
+
+flutter:
+  uses-material-design: true
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21 # minSdk is 21
+
+
+dependency_overrides:
+  orbit_task_platform_interface:
+    path: ../../orbit_task_platform_interface
+  orbit_task_android:
+    path: ../../orbit_task_android
+  orbit_task_ios:
+    path: ../../orbit_task_ios
+  orbit_task_web:
+    path: ../../orbit_task_web

@@ -11,9 +11,9 @@ This document outlines the strategic direction and planned evolution of the Orbi
 - [x] **Native iOS Implementation**: Direct integration with `BGTaskScheduler` for efficient, system-compliant background processing.
 - [x] **Web Support**: Timer-based fallback for standard web sessions.
 - [ ] **Developer Experience**: 
-    - [ ] `@orbitTask` Annotation support (Experimental).
-    - [ ] `orbit_task_generator` to automate `callbackDispatcher` boilerplate.
-- [ ] **Stability & Testing**: Comprehensive integration tests across real devices.
+  - [x] `@orbitTask` Annotation support.
+    - [x] `orbit_task_generator` to automate `callbackDispatcher` boilerplate.
+- [x] **Stability & Testing**: Comprehensive integration tests across real devices.
 
 ---
 
@@ -47,10 +47,4 @@ Developers shouldn't have to rewrite their task logic to move it from a local ba
 *   **Streaming**: Allows for real-time progress updates from long-running server tasks back to the mobile device.
 *   **Type Safety**: Strict contracts between the mobile client and the server.
 
----
 
-## 🟡 Generation 3: Intelligent Orchestration
-**Goal:** AI-driven task scheduling optimization.
-
-*   **Predictive Scheduling**: Learn user usage patterns to schedule tasks when the app is most likely to be opened, or when battery/data is abundant.
-*   **Dynamic Workload Balancing**: Automatically decide whether to run a heavy task locally (if device is powerful/charging) or offload it to the cloud (if device is low battery).

@@ -1,6 +1,6 @@
 name: orbit_task_platform_interface
 description: "Common platform interface definitions for the orbit_task federated plugin ecosystem."
-version: 0.0.1+2
+version: 0.5.0+1
 homepage: https://github.com/rickhohler/orbit_task
 repository: https://github.com/rickhohler/orbit_task/tree/main/packages/orbit_task_platform_interface
 issue_tracker: https://github.com/rickhohler/orbit_task/issues

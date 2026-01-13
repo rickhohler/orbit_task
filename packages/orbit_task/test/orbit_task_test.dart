@@ -37,7 +37,7 @@ void main() {
     test('initialize calls platform initialize', () async {
       when(
         mockPlatform.initialize(
-          any as void Function(String, Map<String, dynamic>),
+          any,
           dispatcher: anyNamed('dispatcher'),
         ),
       ).thenAnswer((_) async {});
@@ -46,7 +46,7 @@ void main() {
 
       verify(
         mockPlatform.initialize(
-          any as void Function(String, Map<String, dynamic>),
+          any,
           dispatcher: anyNamed('dispatcher'),
         ),
       ).called(1);
@@ -54,13 +54,13 @@ void main() {
 
     test('scheduleOneTime calls platform scheduleOneTimeTask', () async {
       when(
-        mockPlatform.scheduleOneTimeTask(any as BackgroundTask),
+        mockPlatform.scheduleOneTimeTask(any),
       ).thenAnswer((_) async {});
 
       // Need to be initialized first
       when(
         mockPlatform.initialize(
-          any as void Function(String, Map<String, dynamic>),
+          any,
           dispatcher: anyNamed('dispatcher'),
         ),
       ).thenAnswer((_) async {});
@@ -75,7 +75,7 @@ void main() {
 
       final captured = verify(
         mockPlatform.scheduleOneTimeTask(
-          captureThat(isA<BackgroundTask>()) as BackgroundTask,
+          captureThat(isA<BackgroundTask>()),
         ),
       ).captured;
       final task = captured.first as BackgroundTask;
@@ -86,11 +86,11 @@ void main() {
 
     test('scheduleTask delegates recurring tasks correctly', () async {
       when(
-        mockPlatform.scheduleRecurringTask(any as BackgroundTask),
+        mockPlatform.scheduleRecurringTask(any),
       ).thenAnswer((_) async {});
       when(
         mockPlatform.initialize(
-          any as void Function(String, Map<String, dynamic>),
+          any,
           dispatcher: anyNamed('dispatcher'),
         ),
       ).thenAnswer((_) async {});
@@ -105,16 +105,16 @@ void main() {
       await OrbitTask.instance.scheduleTask(recurringTask);
 
       verify(mockPlatform.scheduleRecurringTask(recurringTask)).called(1);
-      verifyNever(mockPlatform.scheduleOneTimeTask(any as BackgroundTask));
+      verifyNever(mockPlatform.scheduleOneTimeTask(any));
     });
 
     test('scheduleTask delegates one-time tasks correctly', () async {
       when(
-        mockPlatform.scheduleOneTimeTask(any as BackgroundTask),
+        mockPlatform.scheduleOneTimeTask(any),
       ).thenAnswer((_) async {});
       when(
         mockPlatform.initialize(
-          any as void Function(String, Map<String, dynamic>),
+          any,
           dispatcher: anyNamed('dispatcher'),
         ),
       ).thenAnswer((_) async {});
@@ -129,16 +129,16 @@ void main() {
       await OrbitTask.instance.scheduleTask(oneTimeTask);
 
       verify(mockPlatform.scheduleOneTimeTask(oneTimeTask)).called(1);
-      verifyNever(mockPlatform.scheduleRecurringTask(any as BackgroundTask));
+      verifyNever(mockPlatform.scheduleRecurringTask(any));
     });
 
     test('cancelTask calls platform cancelTask', () async {
       when(
-        mockPlatform.cancelTask(any as String),
+        mockPlatform.cancelTask(any),
       ).thenAnswer((_) => Future.value());
       when(
         mockPlatform.initialize(
-          any as void Function(String, Map<String, dynamic>),
+          any,
           dispatcher: anyNamed('dispatcher'),
         ),
       ).thenAnswer((_) => Future.value());
@@ -153,7 +153,7 @@ void main() {
       when(mockPlatform.cancelAllTasks()).thenAnswer((_) => Future.value());
       when(
         mockPlatform.initialize(
-          any as void Function(String, Map<String, dynamic>),
+          any,
           dispatcher: anyNamed('dispatcher'),
         ),
       ).thenAnswer((_) => Future.value());
